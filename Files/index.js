@@ -13,10 +13,16 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
+    console.log('user connected');
     socket.on('chat message', (msg) => {
         io.emit('chat message', msg);
     });
 });
+
+io.on('disconnect', () => {
+    console.log('user disconnected');
+});
+
 io.emit('some event', {
     someProperty: 'some value',
     otherProperty: 'other value'
